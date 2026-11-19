@@ -523,6 +523,7 @@ function seedProfiles(): TvProfile[] {
     jumpToDown: true,
     theme: 'auto' as const,
     hideControlsAfterMs: 3000 as const,
+    autoFullscreen: true,
     updatedAt: now,
     updatedBy: 'system',
   };

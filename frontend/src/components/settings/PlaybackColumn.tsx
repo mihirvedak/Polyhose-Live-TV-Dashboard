@@ -111,6 +111,17 @@ export function PlaybackColumn({ draft, update, machines, statuses, onValidity }
         </div>
         <div className="pb-row">
           <div>
+            <div className="pb-row-title">Full screen on first touch</div>
+            <div className="pb-sub">Browsers need one click, tap or key press · F toggles</div>
+          </div>
+          <Toggle
+            label="Full screen on first touch"
+            checked={draft.autoFullscreen ?? true}
+            onChange={(autoFullscreen) => update({ autoFullscreen })}
+          />
+        </div>
+        <div className="pb-row">
+          <div>
             <div className="pb-row-title">Colours</div>
             <div className="pb-sub">Auto: Night from 19:00 to 07:00</div>
           </div>

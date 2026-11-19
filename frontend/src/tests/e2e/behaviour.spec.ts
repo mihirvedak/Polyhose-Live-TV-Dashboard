@@ -181,3 +181,45 @@ test.describe('settings', () => {
     await expect(page.locator('.set-counter')).toContainText('16 of 34');
   });
 });
+
+test.describe('full screen', () => {
+  const isFull = (page: import('@playwright/test').Page) => page.evaluate(() => !!document.fullscreenElement);
+
+  test('control bar button and F key toggle full screen', async ({ page }) => {
+    const errors = collectConsoleErrors(page);
+    await page.goto('/tv?profile=braider-hall');
+    await waitForMachine(page);
+    await page.mouse.move(400, 400);
+    await page.getByRole('button', { name: 'Full screen' }).click();
+    await expect.poll(() => isFull(page)).toBe(true);
+    await page.mouse.move(420, 420);
+    await expect(page.getByRole('button', { name: 'Exit full screen' })).toBeVisible();
+
+    await page.keyboard.press('f');
+    await expect.poll(() => isFull(page)).toBe(false);
+    await page.keyboard.press('f');
+    await expect.poll(() => isFull(page)).toBe(true);
+    expect(errors).toEqual([]);
+  });
+
+  test('enters on the first click when the setting is on, and the setting can turn it off', async ({ page }) => {
+    await page.goto('/tv?profile=braider-hall');
+    await waitForMachine(page);
+    await page.mouse.click(300, 300);
+    await expect.poll(() => isFull(page)).toBe(true);
+    // Leaving on purpose keeps it off for this visit
+    await page.keyboard.press('f');
+    await expect.poll(() => isFull(page)).toBe(false);
+    await page.mouse.click(300, 300);
+    await page.waitForTimeout(300);
+    expect(await isFull(page)).toBe(false);
+
+    await page.goto('/tv/settings?profile=braider-hall');
+    await page.getByRole('switch', { name: 'Full screen on first touch' }).click();
+    await page.getByRole('button', { name: 'Save & apply' }).click();
+    await waitForMachine(page);
+    await page.mouse.click(300, 300);
+    await page.waitForTimeout(300);
+    expect(await isFull(page)).toBe(false);
+  });
+});

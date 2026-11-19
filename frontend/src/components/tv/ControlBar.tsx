@@ -1,5 +1,5 @@
 import type { PlayMode } from '../../tv/lib/rotation';
-import { IconGear, IconNext, IconPause, IconPlay, IconPrev, IconStop } from '../common/Icons';
+import { IconFullscreen, IconGear, IconNext, IconPause, IconPlay, IconPrev, IconStop } from '../common/Icons';
 
 interface Props {
   visible: boolean;
@@ -14,6 +14,7 @@ interface Props {
   onStop(): void;
   onNext(): void;
   onSettings(): void;
+  fullscreen: { supported: boolean; active: boolean; toggle(): void };
   barHandlers: { onPointerEnter(): void; onPointerLeave(): void };
 }
 
@@ -58,6 +59,17 @@ export function ControlBar(p: Props) {
         {suffix}
       </div>
       <span className="cb-sep" />
+      {p.fullscreen.supported && (
+        <button
+          type="button"
+          className="cb-btn"
+          onClick={p.fullscreen.toggle}
+          aria-label={p.fullscreen.active ? 'Exit full screen' : 'Full screen'}
+          aria-pressed={p.fullscreen.active}
+        >
+          <IconFullscreen exit={p.fullscreen.active} />
+        </button>
+      )}
       <button type="button" className="cb-btn" onClick={p.onSettings} aria-label="Settings">
         <IconGear />
       </button>

@@ -52,6 +52,7 @@ export function createDefaultProfile(machines: Machine[], id = 'default', name =
     jumpToDown: true,
     theme: 'auto',
     hideControlsAfterMs: 3000,
+    autoFullscreen: true,
     updatedAt: new Date().toISOString(),
     updatedBy: 'tv',
   };

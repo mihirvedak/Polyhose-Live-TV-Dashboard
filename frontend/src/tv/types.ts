@@ -178,6 +178,8 @@ export interface TvProfile {
   jumpToDown: boolean;
   theme: ThemeSetting;
   hideControlsAfterMs: HideDelayMs;
+  /** Enter full screen on the first click, tap or key press (default on) */
+  autoFullscreen?: boolean;
   updatedAt: string;
   updatedBy: string;
 }

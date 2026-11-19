@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { navigate } from '../../router';
 import { tvDataSource } from '../../services/tvDataSource';
 import { useControlBar } from '../../tv/hooks/useControlBar';
+import { useAutoFullscreen, useFullscreen } from '../../tv/hooks/useFullscreen';
 import { useKiosk, useStageScale, STAGE_H, STAGE_W } from '../../tv/hooks/useKiosk';
 import { isStale, useMachineData } from '../../tv/hooks/useMachineData';
 import { useNow } from '../../tv/hooks/useNow';
@@ -41,9 +42,12 @@ export function TvScreen() {
   const machine = machines?.find((m) => m.id === current?.machineId) ?? null;
   const data = useMachineData(machine?.id ?? null);
   const { visible, barHandlers } = useControlBar(profile?.hideControlsAfterMs ?? 3000);
+  const fullscreen = useFullscreen();
+  useAutoFullscreen(profileState.status === 'ready' && (profile?.autoFullscreen ?? true), fullscreen.enter);
 
   // Keyboard and TV remote
   const { prev, next, togglePlay, stop } = rotation;
+  const toggleFullscreen = fullscreen.toggle;
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const onButton = e.target instanceof HTMLButtonElement;
@@ -54,10 +58,11 @@ export function TvScreen() {
         togglePlay();
       } else if (e.key === 'Escape') stop();
       else if (e.key === 's' || e.key === 'S') navigate('/tv/settings');
+      else if (e.key === 'f' || e.key === 'F') void toggleFullscreen();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [prev, next, togglePlay, stop]);
+  }, [prev, next, togglePlay, stop, toggleFullscreen]);
 
   const theme = resolveTheme(profile?.theme ?? 'auto', now);
   const position = playlist.length ? rotation.state.index + 1 : 0;
@@ -118,6 +123,7 @@ export function TvScreen() {
           onStop={rotation.stop}
           onNext={rotation.next}
           onSettings={() => navigate('/tv/settings')}
+          fullscreen={{ supported: fullscreen.supported, active: fullscreen.isFullscreen, toggle: () => void fullscreen.toggle() }}
           barHandlers={barHandlers}
         />
       </div>
