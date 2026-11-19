@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-19T04:28:57.706Z",
+        "reason": "Project spec mandates it: PROMPT (1).md §4 'Font: Inter only' (Faclon Labs design system)"
+      }
+    ]
+  }
+}

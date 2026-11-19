@@ -1,0 +1,61 @@
+/* Faclon Labs design tokens for the Polyhose Machine TV. */
+
+:root,
+[data-theme='day'] {
+  --page: #fdfdfe;
+  --panel: #f1f5fa;
+  --panel-strong: #e6ecf3;
+  --card: #ffffff;
+  --border: #dde3ec;
+  --ink: #0c1927;
+  --muted: #6b7a8c;
+  --brand: #165ff2;
+  --brand-tint: #e8efff;
+  --brand-text: #165ff2;
+
+  --run: #1e8e3e;
+  --run-text: #1e8e3e;
+  --run-tint: #e7f5ec;
+  --down: #d92d20;
+  --down-text: #d92d20;
+  --down-tint: #fdeceb;
+  --co: #e0912f;
+  --co-text: #b54708;
+  --co-tint: #fff3e3;
+  --nosig: #a7b3c2;
+  --nosig-text: #6b7a8c;
+  --nosig-tint: #eef1f5;
+
+  --navy: #0c1927;
+  --bar-bg: #0c1927;
+  --bar-btn: #1f2f45;
+  --bar-ink: #f7f9fc;
+
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+[data-theme='night'] {
+  --page: #0c1927;
+  --panel: #122033;
+  --panel-strong: #1a2b42;
+  --card: #16263b;
+  --border: #253852;
+  --ink: #f7f9fc;
+  --muted: #93a9c4;
+  --brand: #165ff2;
+  --brand-tint: #17305e;
+  --brand-text: #8fb4ff;
+
+  --run-text: #5ccf7d;
+  --run-tint: #12352a;
+  --down-text: #ff7b70;
+  --down-tint: #3a1d22;
+  --co-text: #f2b25c;
+  --co-tint: #3a2a16;
+  --nosig-text: #a7b3c2;
+  --nosig-tint: #1d2b3d;
+
+  --bar-bg: #050d17;
+  --bar-btn: #1f2f45;
+}
