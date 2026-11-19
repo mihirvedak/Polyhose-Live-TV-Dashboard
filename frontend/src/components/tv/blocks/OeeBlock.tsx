@@ -1,7 +1,14 @@
 import { computeOee, oeeTone } from '../../../tv/lib/calc';
 import { formatMetres, formatPct, hhmm } from '../../../tv/lib/format';
-import type { Machine, MachineDetail, MachineLive } from '../../../tv/types';
+import type { Machine, MachineDetail, MachineLive, PeriodKey } from '../../../tv/types';
 import { BlockLoading } from './BlockLoading';
+
+const PERIOD_LABEL: Record<PeriodKey, string> = {
+  current: 'Current shift',
+  prev: 'Previous shift',
+  yesterday: 'Yesterday',
+  month: 'Current month',
+};
 
 interface Props {
   machine: Machine;
@@ -47,11 +54,16 @@ export function OeeBlock({ machine, live, detail, now }: Props) {
               const isCurrent = row.key === 'current';
               const blank = isCurrent && noSignal;
               const r = blank ? null : computeOee(row, machine.id);
-              const sub = isCurrent && live ? `now · ${hhmm(live.shift.start)}–${hhmm(now)}` : row.sublabel;
+              const sub =
+                isCurrent && live
+                  ? `Shift ${live.shift.name} · ${hhmm(live.shift.start)}–${hhmm(now)}`
+                  : row.key === 'prev'
+                    ? `${row.label} · ${row.sublabel}`
+                    : row.sublabel;
               return (
                 <tr key={row.key} className={isCurrent ? 'is-current' : undefined}>
                   <td>
-                    <div className="oee-period">{row.label}</div>
+                    <div className="oee-period">{PERIOD_LABEL[row.key]}</div>
                     <div className="oee-period-sub">{sub}</div>
                   </td>
                   <td className={`oee-main tone-${oeeTone(r?.oee)}`}>{formatPct(r?.oee)}</td>

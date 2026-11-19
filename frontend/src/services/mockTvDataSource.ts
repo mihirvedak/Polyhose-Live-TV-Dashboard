@@ -361,7 +361,6 @@ function buildDetail(machine: Machine, now: Date): MachineDetail {
   const actualNow = prodMin * ideal * p;
 
   const prev = previousShift(shift);
-  const prev2 = previousShift(prev);
   const startOfToday = new Date(now);
   startOfToday.setHours(6, 0, 0, 0);
   if (now.getHours() < 6) startOfToday.setDate(startOfToday.getDate() - 1);
@@ -389,7 +388,6 @@ function buildDetail(machine: Machine, now: Date): MachineDetail {
       goodM: actualNow * q,
     },
     syntheticPeriod(machine, 'prev', `Shift ${prev.name}`, shiftLabel(prev), 480),
-    syntheticPeriod(machine, 'prev2', `Shift ${prev2.name}`, shiftLabel(prev2), 480),
     syntheticPeriod(machine, 'yesterday', 'Yesterday', `${dayMonth(yesterday)} · 3 shifts`, 1440),
     syntheticPeriod(machine, 'month', 'This month', `1–${now.getDate()} ${dayMonth(now).split(' ')[1]}`, 1440 * daysInMonth),
   ];

@@ -57,7 +57,7 @@ export interface MachineLive {
   fetchedAt: string;
 }
 
-export type PeriodKey = 'current' | 'prev' | 'prev2' | 'yesterday' | 'month';
+export type PeriodKey = 'current' | 'prev' | 'yesterday' | 'month';
 
 /** Raw inputs for an OEE period. A/P/Q/OEE are derived in lib/calc. */
 export interface PeriodOeeInput {
