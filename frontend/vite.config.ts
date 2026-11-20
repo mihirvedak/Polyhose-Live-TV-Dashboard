@@ -6,7 +6,7 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: ['app-oee.iocompute.ai'],
+    allowedHosts: ['.iocompute.ai'],
   },
   test: {
     include: ['src/tests/unit/**/*.test.ts'],
